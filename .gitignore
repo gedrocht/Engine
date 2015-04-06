@@ -19,7 +19,7 @@
 *.log
 *.zip
 [Dd]ebug*/
-*.lib
+#*.lib
 *.sbr
 Thumbs.db
 [Ll]ib/
