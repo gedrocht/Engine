@@ -60,9 +60,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib freeglut_static.lib glew32.lib"
+				AdditionalOptions="/NODEFAULTLIB:&quot;MSVCRT&quot; /NODEFAULTLIB:&quot;LIBCMT"
+				AdditionalDependencies="opengl32.lib freeglut_static.lib glew32.lib SOIL.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="Libraries\freeglut;Libraries\glew"
+				AdditionalLibraryDirectories="Libraries\freeglut;Libraries\glew;Libraries\soil"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
