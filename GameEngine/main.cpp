@@ -14,7 +14,7 @@
 using namespace std;
 
 #define PI 3.14159265f
-#define GRAVITY 0.5;
+#define GRAVITY 2;
 
 void display();
 void specialKeys(int key, int x, int y);
@@ -60,6 +60,10 @@ vector<Texture*> *bricks = new vector<Texture*>();
 bool left_pressed = true;
 bool right_pressed = true;
 
+bool space_was_pressed = false;
+bool space_pressed = true;
+
+
 bool fullScreenMode = false; // Full-screen or windowed mode?
 
 // Main function: GLUT runs as a console application starting at main()
@@ -102,6 +106,32 @@ void drawSprite(Texture *texture){
     glColor3f(1.0, 1.0, 1.0);
 	glBindTexture(GL_TEXTURE_2D, texture->texture);
 	
+	/*
+	if( texture->getTop() > 209 && texture->getTop() != 300 ){
+		Physical *temp;
+		Texture *temp_brick;
+		printf( "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n" );
+		cout << texture->getTop() << endl;
+		printf( "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n" );
+
+		for(vector<Physical*>::iterator it = physicals->begin() ; it != physicals->end(); ++it){
+			temp = *it;
+
+			printf( "[ PLAYER ]\nVx: %d\nVy: %d\n", temp->Vx, temp->Vy );
+			temp->texture->DEBUG_printSelf();
+
+			for(vector<Texture*>::iterator brick_it = bricks->begin() ; brick_it != bricks->end(); ++brick_it){
+				temp_brick = *brick_it;
+
+				printf( "=================\nBRICK\n-----------------\n" );
+				temp->texture->DEBUG_printSelf();
+				printf( "is colliding with player: %s\nplayer is on top of: %s\n",
+						(temp->texture->isColliding(temp_brick)?"TRUE":"false"),
+						(temp->texture->isOnTopOf(temp_brick)?"TRUE":"false") );
+			}
+		}
+	}*/
+
     glBegin(GL_QUADS);
 		glTexCoord2i(1,1); glVertex2i(texture->getRight(), texture->getTop());
 		glTexCoord2i(1,0); glVertex2i(texture->getRight(), texture->getBottom());
@@ -131,25 +161,34 @@ void display() {
 
 	Physical *temp;
 	Texture *temp_brick;
+	bool player_is_colliding = false;
 	for(vector<Physical*>::iterator it = physicals->begin() ; it != physicals->end(); ++it){
 		temp = *it;
-		
+
 		for(vector<Texture*>::iterator brick_it = bricks->begin() ; brick_it != bricks->end(); ++brick_it){
 			temp_brick = *brick_it;
 			if( temp->texture->isColliding(temp_brick) ) {
 				temp->Vy = 0;
 				temp->texture->setY( temp_brick->getTop() - 1 - temp->texture->getHeight() );
-				break;
+				player_is_colliding = true;
+				//break;
 				//temp->active = false;
 			} else if( temp->texture->isOnTopOf(temp_brick) ){
-				temp->Vy = 0;
+				if( temp->Vy > 0 )
+					temp->Vy = 0;
 				//temp->active = false;
-				break;
-			} else {
-				temp->Vy += GRAVITY;
+				player_is_colliding = true;
+				//break;
 			}
 		}
 
+		if( !player_is_colliding )
+			temp->Vy += GRAVITY;
+
+		//cout << "y:  " << temp->texture->getY() << endl;
+		if( temp->texture->getY() > 209 )
+			cout << "y:  " << temp->texture->getY() << endl;
+		
 		temp->update();
 	}
 
@@ -172,12 +211,20 @@ void display() {
 
 void updateInput(){
 	if (GetAsyncKeyState(VK_LEFT)){
-		player->Vx = -3;
+		player->Vx = -7;
 	} else if (GetAsyncKeyState(VK_RIGHT)) {
-		player->Vx = 3;
+		player->Vx = 7;
 	} else {
 		player->Vx = 0;
 	}
+
+	space_pressed = GetAsyncKeyState(VK_SPACE);
+	
+	if( space_pressed && !space_was_pressed ){
+		player->Vy = -20;
+	}
+
+	space_was_pressed = space_pressed;
 }
  
 //Call back when the windows is re-sized

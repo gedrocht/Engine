@@ -85,8 +85,8 @@ void Texture::setHeighT( int height ){
 }
 
 bool Texture::isColliding( Texture *other ){
-	if( left > other->left && left < other->right ){
-		if( bottom > other->top && bottom < other->bottom )
+	if( left >= other->left && left <= other->right ){
+		if( bottom >= other->top && bottom <= other->bottom )
 			return true;
 	}
 
@@ -98,4 +98,16 @@ bool Texture::isOnTopOf( Texture *other ){
 		left >= other->left && left <= other->right  )
 			return true;
 	return false;
+}
+
+void Texture::DEBUG_printSelf(){
+	printf( "x: %d\ny: %d\nwidth: %d\nheight: %d\nleft: %d\nright: %d\ntop: %d\nbottom: %d\n",
+			getX(),
+			getY(),
+			getWidth(),
+			getHeight(),
+			getLeft(),
+			getRight(),
+			getTop(),
+			getBottom() );
 }

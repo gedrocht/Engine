@@ -35,4 +35,5 @@ public:
 	void calcBottom();
 	bool isColliding( Texture *other );
 	bool isOnTopOf( Texture *other );
+	void DEBUG_printSelf();
 };
