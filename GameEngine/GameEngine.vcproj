@@ -178,6 +178,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Physical.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Texture.cpp"
 				>
 			</File>
@@ -187,6 +191,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Physical.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Texture.h"
 				>

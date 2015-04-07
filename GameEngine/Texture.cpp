@@ -83,3 +83,19 @@ void Texture::setHeighT( int height ){
 	calcTop();
 	calcBottom();
 }
+
+bool Texture::isColliding( Texture *other ){
+	if( left > other->left && left < other->right ){
+		if( bottom > other->top && bottom < other->bottom )
+			return true;
+	}
+
+	return false;
+}
+
+bool Texture::isOnTopOf( Texture *other ){
+	if( bottom + 1 == other->top &&
+		left >= other->left && left <= other->right  )
+			return true;
+	return false;
+}

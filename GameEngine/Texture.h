@@ -2,6 +2,8 @@
 #include "Libraries/freeglut/glut.h"  // GLUT, include glu.h and gl.h
 #include "Libraries/soil/SOIL.h"
 
+#pragma once
+
 class Texture{
 	int x,
 		y,
@@ -31,4 +33,6 @@ public:
 	void calcRight();
 	void calcTop();
 	void calcBottom();
+	bool isColliding( Texture *other );
+	bool isOnTopOf( Texture *other );
 };

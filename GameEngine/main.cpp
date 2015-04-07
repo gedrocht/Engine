@@ -2,24 +2,29 @@
  
 #include <iostream>
 #include <windows.h>
+#include <winuser.h>
 #include "Libraries/freeglut/glut.h"
 #include <Math.h>
 #include "Libraries/soil/SOIL.h"
 #include <vector>
 
 #include "Texture.h"
+#include "Physical.h"
 
 using namespace std;
 
 #define PI 3.14159265f
+#define GRAVITY 0.5;
 
 void display();
 void specialKeys(int key, int x, int y);
-void keyboard(unsigned char key, int x, int y);
+//void keyboard(unsigned char key, int x, int y);
 void Timer(int value);
 void reshape(GLsizei width, GLsizei height);
 void initGL();
 void drawSprite(GLint left, GLint right, GLint bottom, GLint top, GLuint texture);
+//void keyboard_up(unsigned char key, int x, int y);
+void updateInput();
 
 char title[] = "Full-Screen & Windowed Mode";  // Windowed mode's title
 
@@ -45,10 +50,16 @@ GLdouble clipAreaXLeft,
 		 clipAreaYBottom,
 		 clipAreaYTop;
 
-Texture *texture;
+Physical *player;
+
+vector<Physical*> *physicals = new vector<Physical*>();
 
 vector<Texture*> *textures = new vector<Texture*>();
- 
+vector<Texture*> *bricks = new vector<Texture*>();
+
+bool left_pressed = true;
+bool right_pressed = true;
+
 bool fullScreenMode = false; // Full-screen or windowed mode?
 
 // Main function: GLUT runs as a console application starting at main()
@@ -61,15 +72,24 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(display);     // Register callback handler for window re-paint
 	glutReshapeFunc(reshape);     // Register callback handler for window re-shape
 	glutTimerFunc(0, Timer, 0);   // First timer call immediately
-	glutSpecialFunc(specialKeys); // Register callback handler for special-key event
-	glutKeyboardFunc(keyboard);   // Register callback handler for special-key event
+	//glutSpecialFunc(specialKeys); // Register callback handler for special-key event
+	//glutKeyboardFunc(keyboard);   // Register callback handler for special-key event
+	//glutKeyboardUpFunc(keyboard_up);
 	if( fullScreenMode )
 		glutFullScreen();             // Put into full screen
 	initGL();                     // Our own OpenGL initialization
 
-	texture = new Texture("test_inverted.bmp",0,0,90,90);
-	textures->push_back(texture);
+	player = new Physical(new Texture("test_inverted.bmp",0,0,90,90));
+	physicals->push_back(player);
+	textures->push_back(player->texture);
 	textures->push_back(new Texture("test.bmp",40,40,90,90));
+
+	Texture *brick;
+	for( int i = 0 ; i < 6 ; i++ ){
+		brick = new Texture("brick.bmp",i*135-67,300,135,62);
+		textures->push_back(brick);
+		bricks->push_back(brick);
+	}
 
 	glutMainLoop();               // Enter event-processing loop
 
@@ -109,9 +129,36 @@ void display() {
 	
 	glOrtho(0.0f, windowWidth, windowHeight, 0.0f, 0.0f, 1.0f);
 
+	Physical *temp;
+	Texture *temp_brick;
+	for(vector<Physical*>::iterator it = physicals->begin() ; it != physicals->end(); ++it){
+		temp = *it;
+		
+		for(vector<Texture*>::iterator brick_it = bricks->begin() ; brick_it != bricks->end(); ++brick_it){
+			temp_brick = *brick_it;
+			if( temp->texture->isColliding(temp_brick) ) {
+				temp->Vy = 0;
+				temp->texture->setY( temp_brick->getTop() - 1 - temp->texture->getHeight() );
+				break;
+				//temp->active = false;
+			} else if( temp->texture->isOnTopOf(temp_brick) ){
+				temp->Vy = 0;
+				//temp->active = false;
+				break;
+			} else {
+				temp->Vy += GRAVITY;
+			}
+		}
+
+		temp->update();
+	}
+
+	updateInput();
+
 	for(vector<Texture*>::iterator it = textures->begin() ; it != textures->end(); ++it){
 		drawSprite(*it);
 	}
+
     glFlush();
 
 	glMatrixMode(GL_MODELVIEW);    // To operate on the model-view matrix
@@ -121,6 +168,16 @@ void display() {
 	glLoadIdentity();
  
 	glutSwapBuffers();  // Swap front and back buffers (of double buffered mode)
+}
+
+void updateInput(){
+	if (GetAsyncKeyState(VK_LEFT)){
+		player->Vx = -3;
+	} else if (GetAsyncKeyState(VK_RIGHT)) {
+		player->Vx = 3;
+	} else {
+		player->Vx = 0;
+	}
 }
  
 //Call back when the windows is re-sized
@@ -142,7 +199,12 @@ void Timer(int value) {
 	glutPostRedisplay();    // Post a paint request to activate display()
 	glutTimerFunc(refreshMillis, Timer, 0); // subsequent timer call at milliseconds
 }
- 
+
+/*
+void keyboard_up(unsigned char key, int x, int y){
+	cout << "UP: " << key << endl;
+}
+
 // Callback handler for normal-key event
 void keyboard(unsigned char key, int x, int y) {
 	switch (key) {
@@ -169,16 +231,18 @@ void specialKeys(int key, int x, int y) {
 			}
 			break;
 		case GLUT_KEY_RIGHT:
-			texture->setX( texture->getX() + 5 );
+			//texture->setX( texture->getX() + 5 );
+			player->Vx = 3;
 			break;
 		case GLUT_KEY_LEFT:
-			texture->setX( texture->getX() - 5 );
+			//texture->setX( texture->getX() - 5 );
+			player->Vx = -3;
 			break;
 		case GLUT_KEY_UP:
-			texture->setY( texture->getY() - 5 );
+			//texture->setY( texture->getY() - 5 );
 			break;
 		case GLUT_KEY_DOWN:
-			texture->setY( texture->getY() + 5 );
+			//texture->setY( texture->getY() + 5 );
 			break;
 		case GLUT_KEY_PAGE_UP:
 			break;
@@ -186,3 +250,4 @@ void specialKeys(int key, int x, int y) {
 			break;
 	}
 }
+*/
