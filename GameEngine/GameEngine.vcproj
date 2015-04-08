@@ -246,6 +246,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\eKeyCodes.h"
+				>
+			</File>
+			<File
+				RelativePath=".\eTileTypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\IAABB.cpp"
 				>
 			</File>
@@ -262,6 +270,38 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Map.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MoveableObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MoveableObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Platformer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Platformer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Player.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Player.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Point.cpp"
 				>
 			</File>
@@ -275,6 +315,14 @@
 			</File>
 			<File
 				RelativePath=".\PointAndDistanceContainer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Scalar.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Scalar.h"
 				>
 			</File>
 			<File

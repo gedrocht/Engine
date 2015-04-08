@@ -1,5 +1,9 @@
 #include "AABB.h"
 
+AABB::AABB(){
+	Initialize( new Vector2(), new Vector2() );
+}
+
 AABB::AABB( Vector2 *center, Vector2 *halfExtents ){
 	Initialize( center, halfExtents );	
 }
@@ -63,12 +67,17 @@ void AABB::EnlargeY( float amount ){
 }
 
 bool AABB::Overlap( IAABB *a, IAABB *b ){
-	Vector2 *centerDelta = Platformer::m_gTempVectorPool->Allocate();
+	//Vector2 *centerDelta = Platformer::m_gTempVectorPool->Allocate(); //FIXME
+	Vector2 *centerDelta = new Vector2();
 	centerDelta->CloneInto( b->m_Center );
 	centerDelta->SubFrom( a->m_Center );
 	centerDelta->AbsTo();
 
-	Vector2 *halfExtentsSum = Platformer::m_gTempVectorPool->Allocate();
+	//Vector2 *halfExtentsSum = Platformer::m_gTempVectorPool->Allocate(); //FIXME
+	Vector2 *halfExtentsSum = new Vector2();
+
+
+
 	halfExtentsSum->CloneInto( a->m_HalfExtents );
 	halfExtentsSum->AddTo( b->m_HalfExtents );
 

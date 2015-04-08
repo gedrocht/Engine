@@ -1,8 +1,9 @@
+#pragma once
+
 #include "Constants.h"
 #include "Point.h"
+#include "Scalar.h"
 #include <string.h>
-
-#pragma once
 
 class Vector2 {
 public:

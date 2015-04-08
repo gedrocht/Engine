@@ -1,13 +1,15 @@
-#include "IAABB.h"
-#include "Vector2.h"
-
 #pragma once
+
+#include "IAABB.h"
+#include "Platformer.h"
+#include "Vector2.h"
 
 class AABB {// : IAABB {
 public:
 	Vector2 *m_Center;
 	Vector2 *m_HalfExtents;
 
+	AABB( );
 	AABB( Vector2 *center, Vector2 *halfExtents );
 	void Initialize( Vector2 *center, Vector2 *halfExtents );
 	Vector2 *get_m_Center();

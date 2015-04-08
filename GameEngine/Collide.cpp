@@ -1,5 +1,4 @@
 #include "Collide.h"
-#include "AABB.h"
 
 /// Helper function which checks for internal edges
 bool Collide::IsInternalCollision( int tileI, int tileJ, Vector2 *normal, Map *map ){
@@ -9,7 +8,7 @@ bool Collide::IsInternalCollision( int tileI, int tileJ, Vector2 *normal, Map *m
 	int currentTile = map->GetTile( tileI, tileJ );
 	int nextTile = map->GetTile( nextTileI, nextTileJ );
 	
-	bool internalEdge = Map->IsTileObstacle(nextTile);
+	bool internalEdge = map->IsTileObstacle(nextTile);
 	
 	return internalEdge;
 }
@@ -17,7 +16,7 @@ bool Collide::IsInternalCollision( int tileI, int tileJ, Vector2 *normal, Map *m
 /// Returns information about distance and direction from point to AABB
 bool Collide::AabbVsAabbInternal( Vector2 *delta, Vector2 *aabbCenter, Vector2 *aabbHalfExtents, Vector2 *point, Contact *outContact ){
 	// form the closest plane to the point
-	Vector2* planeN = delta->get_m_MajorAxis->NegTo();
+	Vector2* planeN = delta->get_m_MajorAxis()->NegTo();
 	Vector2* planeCentre = planeN->Mul( aabbHalfExtents )->AddTo(aabbCenter);
 	
 	// distance point from plane
@@ -27,14 +26,15 @@ bool Collide::AabbVsAabbInternal( Vector2 *delta, Vector2 *aabbCenter, Vector2 *
 	// form point
 	
 	// build and push
-	outContact->Initialise( planeN, dist, point );
-		
+	outContact->Initialize( planeN, dist, point );
+	
 	// collision?
 	return true;
 }
 
 bool Collide::AabbVsAabb( IAABB *a, IAABB *b, Contact *outContact, int tileI, int tileJ, Map *map, bool checkInternal ){
-	Vector2* combinedExtentsB = Platformer::m_gTempVectorPool->AllocateClone( b->m_HalfExtents )->AddTo(a->m_HalfExtents);
+	//Vector2* combinedExtentsB = Platformer::m_gTempVectorPool->AllocateClone( b->m_HalfExtents )->AddTo(a->m_HalfExtents); //FIXME
+	Vector2 *combinedExtentsB = (new Vector2( b->get_m_HalfExtents()->m_x, b->get_m_HalfExtents()->m_y ))->AddTo(a->m_HalfExtents ); //FIXME
 	Vector2* combinedPosB = b->m_Center;
 	
 	Vector2* delta = combinedPosB->Sub(a->m_Center);

@@ -1,8 +1,21 @@
 #include "Player.h"
 
 Player::Player( ) {
-	super();
+	//super(); //FIXME
 	
+	// how high do they jump?
+	kPlayerJumpVel = 900*1.2;
+
+	// how many frames does tha player flash for?
+	kHurtFrames = 120;
+
+	// controls how fast the player's velocity moves towards the target velocity
+	// 1.0 = in one frame, 0 = never
+	kReachTargetScale = 0.7;
+
+	// how fast the player walks
+	kWalkSpeed = 80;
+
 	m_flyMode = false;
 	
 	// temporary storage for collision against tiles
@@ -12,18 +25,21 @@ Player::Player( ) {
 }
 
 /// Replaces the constructor since we can't have any parameters due to the CS4 symbol inheritance
-Vector2 *Player::Initialise(Vector2 *pos, Map *map, Platformer *parent) {
-	Vector2 *newPos = super->Initialise( pos, map, parent );
-	
-	m_velTarget = new Vector2( );
-	m_keyboard = parent.m_Keyboard;
+Vector2 *Player::Initialize(Vector2 *pos, Map *map, Platformer *parent) {
+	//Vector2 *newPos = super->Initialise( pos, map, parent ); //FIXME
+	Vector2 *newPos = new Vector2();
+
+	this->m_velTarget = new Vector2( );
+	//m_keyboard = parent.m_Keyboard;
 	
 	return newPos;
 }
 
+/*
 void Player::MakeTemporaryilyInvunerable( ) {
 	m_hurtTimer = kHurtFrames;
 }
+*/
 
 bool Player::get_m_HasWorldCollision( ) {
 	return true;
@@ -31,32 +47,35 @@ bool Player::get_m_HasWorldCollision( ) {
 
 void Player::Update( float dt ) {
 	// player contol
-	KeyboardControl( dt );
+	//KeyboardControl( dt ); //FIXME
 	
 	// integrate velocity
 	if ( m_flyMode )
 	{
-		m_vel.MulScalarTo( 0.5 );
+		m_vel->MulScalarTo( 0.5 );
 	}
 	else
 	{
-		m_vel.AddYTo( Constants.kGravity );
+		m_vel->AddYTo( kGravity );
 	}
 	
 	// clamp speed
 	m_vel->m_x = Scalar::Clamp( m_vel->m_x, -kMaxSpeed, kMaxSpeed );
 	m_vel->m_y = min( m_vel->m_y, kMaxSpeed*2 );
 	
-	super.Update( dt );
+	//super.Update( dt ); //FIXME
 	
+	/*
 	if ( m_hurtTimer>0 )
 	{
-		this.visible = (m_hurtTimer&1) == 1;
+		//this.visible = (m_hurtTimer&1) == 1;
 		m_hurtTimer--;
 	}
+	*/
 }
-
+/*
 void Player::KeyboardControl( float dt ) {
+	/*
 	m_tryToMove = false;
 	
 	float moveSpeed;
@@ -118,8 +137,9 @@ void Player::KeyboardControl( float dt ) {
 			}
 		}
 	}
-}
-		
+	*/
+//}
+	
 bool Player::get_m_ApplyFriction( ) {
 	return !m_tryToMove;
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Math.h>
 #include "Vector2.h"
 #include "constants.h"
@@ -17,6 +19,6 @@ public:
 	float Circle::DistanceToPoint( Vector2 *p );
 	Vector2 *Circle::ClosestPointOnEdge( Vector2 *p, float bias );
 	PointAndDistanceContainer *Circle::ClosestPointAndDistOnEdge( Vector2 *p );
-	bool Circle::CircleCircleIntersect( Circle *a, Circle *b, Vector2Ref *pointAOut, Vector2Ref *pointBOut );
+	bool Circle::CircleCircleIntersect( Circle *a, Circle *b, Vector2 *pointAOut, Vector2 *pointBOut );
 	float RayCast( Vector2 *start, Vector2 *end, bool invert );
 };

@@ -212,8 +212,10 @@ float Vector2::ToAngle() {
 Vector2 *Vector2::RandomRadius(float r) {
     return (new Vector2
                 (
-                    random() * 2 - 1,
-                    random() * 2 - 1
+                    //random() * 2 - 1, //FIXME
+                    //random() * 2 - 1 //FIXME
+					1 * 2 - 1,
+					1 * 2 - 1
                 ))->MulScalar( r );
 }
 
@@ -277,9 +279,9 @@ Vector2* Vector2::UnitTo() {
 /// Get the largest coordinate and return a signed, unit vector containing only that coordinate
 Vector2* Vector2::get_m_MajorAxis( ) {
     if ( abs( m_x )>abs( m_y ) ) {
-        return new Vector2( Scalar->Sign(m_x), 0 );
+		return new Vector2( Scalar::Sign(m_x), 0 );
     } else {
-        return new Vector2( 0, Scalar->Sign(m_y) );
+		return new Vector2( 0, Scalar::Sign(m_y) );
     }
 }
 

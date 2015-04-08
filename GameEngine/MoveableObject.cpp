@@ -1,10 +1,11 @@
 #include "MoveableObject.h"
 
 MoveableObject::MoveableObject( ) {
-	super( );
+	//super( ); //FIXME
+	kGroundFriction = 0.6;
 	
 	// get collsion radius
-	m_radius = Constants.kPlayerWidth/2;
+	m_radius = kPlayerWidth/2;
 	m_halfExtents = new Vector2( m_radius, m_radius );
 	
 	m_vel = new Vector2( );
@@ -18,13 +19,14 @@ MoveableObject::MoveableObject( ) {
 /// Replaces the constructor since we can't have any parameters due to the CS4 symbol inheritance
 Vector2 *MoveableObject::Initialize( Vector2* pos, Map *map, Platformer* parent ) {
 	// position in the centre of the tile in the X and resting on the bottom of the tile in the Y
-	if ( m_TileMapped )
+	//if ( m_TileMapped ) //FIXME
+	if( true ) //FIXME
 	{
 		pos->m_x += kTileSize/2;
 		pos->m_y += kTileSize-m_radius;
 	}
 	
-	m_Pos = pos;
+	m_pos = pos;
 	m_platformer = parent;
 	m_map = map;
 	
@@ -51,15 +53,18 @@ void MoveableObject::set_m_Pos( Vector2 *pos ) {
 	m_pos = pos;
 	
 	// update visual
+	/*
 	this->x = pos->m_x;
 	this->y = pos->m_y;
+	*/
+
 }
 
 Vector2* MoveableObject::get_m_Vel( ) {
 	return m_vel;
 }
 
-void MoveableObject::set m_Vel( Vector2* vel ) {
+void MoveableObject::set_m_Vel( Vector2* vel ) {
 	m_vel = vel;
 }
 
@@ -79,13 +84,14 @@ bool MoveableObject::get_m_Dead( ) {
 	return m_dead;
 }
 
-void MoveableObject::set m_Dead( bool dead ) {
+void MoveableObject::set_m_Dead( bool dead ) {
 	m_dead = dead;
 }
 
 /// Apply gravity, do collision and integrate position
 void MoveableObject::Update( float dt ) {
-	if ( m_ApplyGravity )
+	//if ( m_ApplyGravity )  //FIXME
+	if( true ) //FIXME
 	{
 		m_vel->AddYTo( kGravity );
 		
@@ -93,7 +99,8 @@ void MoveableObject::Update( float dt ) {
 		m_vel->m_y = min( m_vel->m_y, kMaxSpeed*2 );
 	}
 	
-	if ( m_HasWorldCollision )
+	//if ( m_HasWorldCollision )
+	if( true )  //FIXME
 	{
 		// do complex world collision
 		Collision( dt );
@@ -103,7 +110,7 @@ void MoveableObject::Update( float dt ) {
 	m_pos->MulAddScalarTo( m_vel->Add(m_posCorrect), dt );
 	
 	// force the setter to act
-	m_Pos = m_pos;
+	this->m_pos = m_pos;
 	m_posCorrect->Clear( );
 }
 
@@ -134,7 +141,8 @@ void MoveableObject::PostCollisionCode( ) {
 /// Do collision detection and response for this object
 void MoveableObject::Collision( float dt ) {
 	// where are we predicted to be next frame?
-	Vector2 *predictedPos = Platformer::m_gTempVectorPool->AllocateClone( m_pos )->MulAddScalarTo( m_vel, dt );
+	//Vector2 *predictedPos = Platformer::m_gTempVectorPool->AllocateClone( m_pos )->MulAddScalarTo( m_vel, dt );  //FIXME
+	Vector2 *predictedPos = (new Vector2( m_pos->m_x, m_pos->m_y))->MulAddScalarTo( m_vel, dt );  //FIXME
 	
 	// find min/max
 	Vector2 *v_min = m_pos->Min( predictedPos );
@@ -151,7 +159,7 @@ void MoveableObject::Collision( float dt ) {
 	
 	PreCollisionCode( );
 	
-	m_map->DoActionToTilesWithinAabb( v_min, v_max, InnerCollide, dt );
+	//m_map->DoActionToTilesWithinAabb( v_min, v_max, InnerCollide, dt ); //FIXME
 	
 	PostCollisionCode( );
 }
@@ -162,7 +170,8 @@ void MoveableObject::InnerCollide( AABB *tileAabb, int tileType, float dt, int i
 	if ( Map::IsTileObstacle( tileType ) )
 	{
 		// standard collision responce
-		bool collided = Collide::AabbVsAabb( this, tileAabb, m_contact, i, j, m_map );
+		//bool collided = Collide::AabbVsAabb( this, tileAabb, m_contact, i, j, m_map, true ); //FIXME //FIXME
+		bool collided = false; //FIXME
 		if ( collided )
 		{
 			CollisionResponse( m_contact->m_normal, m_contact->m_dist, dt );
@@ -198,10 +207,11 @@ void MoveableObject::CollisionResponse( Vector2 *normal, float dist, float dt ) 
 			m_onGround = true;
 			
 			// friction
-			if ( m_ApplyFriction )
+			//if ( m_ApplyFriction )  //FIXME
+			if( true )  //FIXME
 			{
 				// get the tanget from the normal (perp vector)
-				Vector2 *tangent = normal->m_Perp;
+				Vector2 *tangent = normal->get_m_Perp();
 				
 				// compute the tangential velocity, scale by friction
 				float tv = m_vel->Dot( tangent )*kGroundFriction;
@@ -221,8 +231,8 @@ void MoveableObject::CollisionResponse( Vector2 *normal, float dist, float dt ) 
 
 /// Is the given candidate heading towards towardsPoint? 
 bool MoveableObject::HeadingTowards( Vector2 *towardsPoint, MoveableObject *candidate ) {
-	float deltaX = towardsPoint->m_x-candidate->m_Pos->m_x;
-	bool headingTowards = deltaX*candidate->m_Vel->m_x > 0;
+	float deltaX = towardsPoint->m_x - candidate->m_pos->m_x;
+	bool headingTowards = deltaX*candidate->m_vel->m_x > 0;
 	
 	return headingTowards;
 }

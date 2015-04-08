@@ -1,9 +1,11 @@
 #include "Map.h"
 
 Map::Map( Platformer *platformer ) {
+	m_gTileCenterOffset = new Vector2( kTileSize/2, kTileSize/2 );
+	m_gTileHalfExtents = new Vector2( kTileSize/2, kTileSize/2 );
 	m_platformer = platformer;
 		
-	Assert( m_Map.length==m_Width*m_Height, "Map dimensions don't match constants!" );
+	//Assert( m_Map.length==m_Width*m_Height, "Map dimensions don't match constants!" );
 	
 	m_aabbTemp = new AABB( );
 }
@@ -24,21 +26,21 @@ void Map::UnitTest( ) {
 	
 	int iMinCheck = WorldCoordsToTileY( yMin );
 	
-	Assert( iMin==iMinCheck, "UnitTest(): fail!" );
+	//Assert( iMin==iMinCheck, "UnitTest(): fail!" );
 }
 
 int Map::GetTile( int i, int j ) {
 	return GetTileSafe( m_Map, i, j );
 }
 
-int Map::GetTileSafe( Vector<int> map, int i, int j ) {
-	if ( i >= 0 && i < m_Width && j >= 0 && j < m_Height )
+int Map::GetTileSafe( vector<int> map, int i, int j ) {
+	if ( i >= 0 && i < m_width && j >= 0 && j < m_height )
 	{
-		return map[j*m_Width+i];
+		return map[j*m_width+i];
 	}
 	else 
 	{
-		return eTileTypes::kInvalid;
+		return kInvalid;
 	}
 }
 
@@ -70,19 +72,19 @@ int Map::GetTileFromPos( Vector2 *pos ) {
 }
 
 bool Map::IsTileObstacle( int tile ) {
-	return tile==eTileTypes::kPlatform;
+	return tile==kPlatform;
 }
 
 void Map::FillInTileAabb( int i, int j, AABB *outAabb ) {
-	outAabb->Initialise( new Vector2
-						(
+	outAabb->Initialize( (new Vector2(
 							TileCoordsToWorldX(i), 
 							TileCoordsToWorldY(j)
-						).AddTo(m_gTileCentreOffset), m_gTileHalfExtents );
+						))->AddTo(m_gTileCenterOffset), m_gTileHalfExtents );
 }
 
 /// Call out to the action for each tile within the given world space bounds
-void Map::DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *action, float dt ) {
+/*
+void Map::DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *action, float dt ) { //FIXME
 	// round down
 	int minI = WorldCoordsToTileX(v_min->m_x);
 	int minJ = WorldCoordsToTileY(v_min->m_y);
@@ -103,3 +105,4 @@ void Map::DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *a
 		}
 	}
 }
+*/

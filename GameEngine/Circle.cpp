@@ -22,7 +22,9 @@ void Circle::set_m_Radius( float newRadius ){
 }
 
 bool Circle::Contains( Vector2 *p ){
-	float radius = m_radius - kTouchingThresh;
+	//float radius = m_radius - kTouchingThresh; //FIXME
+	float radius = m_radius - 1; //FIXME
+
     return p->Sub(m_pos)->get_m_LenSqr() < radius*radius;
 }
 
@@ -51,7 +53,7 @@ PointAndDistanceContainer *Circle::ClosestPointAndDistOnEdge( Vector2 *p ){
     return new PointAndDistanceContainer(pow, penetration);
 }
 	
-bool Circle::CircleCircleIntersect( Circle *a, Circle *b, Vector2Ref *pointAOut, Vector2Ref *pointBOut ){
+bool Circle::CircleCircleIntersect( Circle *a, Circle *b, Vector2 *pointAOut, Vector2 *pointBOut ){
 	Vector2 *d = b->m_pos->Sub( a->m_pos );
 	float centerDist = d->get_m_Len();
     
@@ -76,9 +78,9 @@ bool Circle::CircleCircleIntersect( Circle *a, Circle *b, Vector2Ref *pointAOut,
         float radius = sqrt( sqr );
         
         Vector2 *perp = b->m_pos->Sub( a->m_pos )->get_m_Perp()->get_m_Unit();
-        
-        pointAOut->m_Value = P2->Add(perp->MulScalar(radius));
-        pointBOut->m_Value = P2->Sub(perp->MulScalar(radius));
+
+        pointAOut = P2->Add(perp->MulScalar(radius)); //FIXME
+        pointBOut = P2->Sub(perp->MulScalar(radius)); //FIXME
         
         return true;
     }

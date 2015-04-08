@@ -1,5 +1,7 @@
-int kEmpty = 0x00;
-int kPlatform = 0x01;
-int kPlayer = 0x02;
+#pragma once
+
+const int kEmpty = 0x00;
+const int kPlatform = 0x01;
+const int kPlayer = 0x02;
 	
-int kInvalid = 0xff;
+const int kInvalid = 0xff;

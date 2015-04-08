@@ -1,9 +1,17 @@
+#pragma once
+
 #include "Vector2.h"
+#include "Contact.h"
+#include "AABB.h"
+#include "Map.h"
+#include "Constants.h"
+#include "Collide.h"
+#include "Platformer.h"
 
 class MoveableObject {//: IAABB, ICircle
-
+public:
 	// friction with ground - 1=totally sticky, 0=ice
-	float kGroundFriction = 0.6;
+	float kGroundFriction;
 
 	Vector2* m_pos;
 	Vector2* m_posCorrect;
@@ -29,12 +37,12 @@ class MoveableObject {//: IAABB, ICircle
 	Vector2* get_m_Pos( );
 	void set_m_Pos( Vector2 *pos );
 	Vector2* get_m_Vel( );
-	void set m_Vel( Vector2* vel );
+	void set_m_Vel( Vector2* vel );
 	bool get_m_OnGround( );
 	bool get_m_OnGroundLast( );
 	bool get_m_TileMapped( );
 	bool get_m_Dead( );
-	void set m_Dead( bool dead );
+	void set_m_Dead( bool dead );
 	void Update( float dt );
 	bool get_m_HasWorldCollision( );
 	bool get_m_ApplyGravity( );
