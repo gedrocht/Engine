@@ -89,8 +89,8 @@ int main(int argc, char** argv) {
 	textures->push_back(new Texture("test.bmp",40,40,90,90));
 
 	Texture *brick;
-	for( int i = 0 ; i < 6 ; i++ ){
-		brick = new Texture("brick.bmp",i*135-67,300,135,62);
+	for( int i = 0 ; i < 3 ; i++ ){
+		brick = new Texture("brick.bmp",i*135-67,300-i*100,135,62);
 		textures->push_back(brick);
 		bricks->push_back(brick);
 	}
@@ -168,8 +168,13 @@ void display() {
 		for(vector<Texture*>::iterator brick_it = bricks->begin() ; brick_it != bricks->end(); ++brick_it){
 			temp_brick = *brick_it;
 			if( temp->texture->isColliding(temp_brick) ) {
+				if( temp->Vy > 0 )
+					temp->texture->setY( temp_brick->getTop() - 1 - temp->texture->getHeight() );
+				else
+					temp->texture->setY( temp_brick->getBottom() + 1 );
+
 				temp->Vy = 0;
-				temp->texture->setY( temp_brick->getTop() - 1 - temp->texture->getHeight() );
+
 				player_is_colliding = true;
 				//break;
 				//temp->active = false;
@@ -179,15 +184,19 @@ void display() {
 				//temp->active = false;
 				player_is_colliding = true;
 				//break;
+			} else if( temp->texture->isRightBelow(temp_brick) ){
+				if( temp->Vy < 0 )
+					temp->Vy = 0;
 			}
 		}
 
 		if( !player_is_colliding )
 			temp->Vy += GRAVITY;
 
-		//cout << "y:  " << temp->texture->getY() << endl;
+		/*
 		if( temp->texture->getY() > 209 )
 			cout << "y:  " << temp->texture->getY() << endl;
+		*/
 		
 		temp->update();
 	}

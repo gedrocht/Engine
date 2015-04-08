@@ -78,25 +78,54 @@ void Texture::setWidth( int width ){
 	calcRight();
 }
 
-void Texture::setHeighT( int height ){
+void Texture::setHeight( int height ){
 	this->height = height;
 	calcTop();
 	calcBottom();
 }
 
 bool Texture::isColliding( Texture *other ){
-	if( left >= other->left && left <= other->right ){
+	return x < other->x + other->width  &&
+		   x + width > other->x			&&
+		   y < other->y + other->height &&
+		   height + y > other->y;
+}
+
+
+/*
+bool Texture::isColliding( Texture *other ){
+	if( (left >= other->left && left <= other->right) ||
+		(right <= other->right && right >= other->left) && ){
 		if( bottom >= other->top && bottom <= other->bottom )
 			return true;
 	}
 
 	return false;
 }
+*/
 
 bool Texture::isOnTopOf( Texture *other ){
-	if( bottom + 1 == other->top &&
-		left >= other->left && left <= other->right  )
-			return true;
+	if( bottom + 1 == other->top //){
+		&& ((left >= other->left && left <= other->right)   ||
+		    (right >= other->left && right <= other->right) ||
+			(left <= other->left && right >= other->right))
+			) {
+		//other->
+		//bool wouldCollide = 
+		//return wouldCollide;
+		return true;
+	}
+	return false;
+}
+
+bool Texture::isRightBelow( Texture *other ){
+	if( top - 1 == other->bottom
+		&& ((left >= other->left && left <= other->right)   ||
+		    (right >= other->left && right <= other->right) ||
+			(left <= other->left && right >= other->right))
+			) {
+		return true;
+	}
 	return false;
 }
 

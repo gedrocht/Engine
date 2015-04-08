@@ -28,12 +28,13 @@ public:
 	void setX( int x );
 	void setY( int y );
 	void setWidth( int width );
-	void setHeighT( int height );
+	void setHeight( int height );
 	void calcLeft();
 	void calcRight();
 	void calcTop();
 	void calcBottom();
 	bool isColliding( Texture *other );
 	bool isOnTopOf( Texture *other );
+	bool isRightBelow( Texture *other );
 	void DEBUG_printSelf();
 };
