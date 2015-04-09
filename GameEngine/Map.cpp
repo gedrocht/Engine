@@ -1,5 +1,13 @@
 #include "Map.h"
 
+Map::Map(){
+	m_gTileCenterOffset = new Vector2( kTileSize/2, kTileSize/2 );
+	m_gTileHalfExtents = new Vector2( kTileSize/2, kTileSize/2 );
+	m_platformer = new Platformer();
+
+	m_aabbTemp = new AABB( );
+}
+
 Map::Map( Platformer *platformer ) {
 	m_gTileCenterOffset = new Vector2( kTileSize/2, kTileSize/2 );
 	m_gTileHalfExtents = new Vector2( kTileSize/2, kTileSize/2 );

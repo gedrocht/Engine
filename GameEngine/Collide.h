@@ -6,6 +6,9 @@
 #include "Contact.h"
 #include "Map.h"
 
+//class AABB;
+class Map;
+
 class Collide {
 public:
 	bool IsInternalCollision( int tileI, int tileJ, Vector2 *normal, Map *map );

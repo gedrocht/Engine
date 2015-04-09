@@ -9,6 +9,8 @@
 
 using namespace std;
 
+class Player;
+
 class Platformer //: GameLoop
 {
 public:

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IAABB.h"
-#include "Platformer.h"
 #include "Vector2.h"
 
 class AABB {// : IAABB {

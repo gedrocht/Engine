@@ -6,7 +6,11 @@
 #include "AABB.h"
 #include "Map.h"
 
-class Player //: Character
+class Map;
+class Platformer;
+class AABB;
+
+class Player// : public Character
 {
 public:
 	// how high do they jump?

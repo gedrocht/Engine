@@ -7,6 +7,8 @@
 #include "Vector2.h"
 #include "eTileTypes.h"
 
+//class Platformer; //FIXME
+
 using namespace std;
 
 class Map{
@@ -22,6 +24,7 @@ public:
 	int m_width;
 	int m_height; 
 
+	Map();
 	Map( Platformer *platformer );
 	void UnitTest( );
 	int GetTile( int i, int j );
