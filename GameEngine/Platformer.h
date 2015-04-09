@@ -1,10 +1,7 @@
 #pragma once
 
-#include "AABB.h"
+#include "Vector2.h"
 #include "Map.h"
-#include "Player.h"
-#include "MoveableObject.h"
-#include "eTileTypes.h"
 #include <vector>
 
 using namespace std;

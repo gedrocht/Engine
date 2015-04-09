@@ -2,9 +2,6 @@
 
 #include "AABB.h"
 #include <vector>
-#include "Constants.h"
-#include "Platformer.h"
-#include "Vector2.h"
 #include "eTileTypes.h"
 
 //class Platformer; //FIXME

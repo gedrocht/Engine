@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IAABB.h"
-#include "Vector2.h"
 
 class AABB {// : IAABB {
 public:

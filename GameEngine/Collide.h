@@ -1,10 +1,6 @@
 #pragma once
 
-#include "Vector2.h"
-#include "IAABB.h"
 #include "AABB.h"
-#include "Contact.h"
-#include "Map.h"
 
 //class AABB;
 class Map;

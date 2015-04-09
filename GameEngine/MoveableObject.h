@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Vector2.h"
-#include "Contact.h"
-#include "AABB.h"
 #include "Map.h"
 #include "Constants.h"
 #include "Collide.h"
