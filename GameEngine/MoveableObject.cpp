@@ -1,7 +1,7 @@
 #include "MoveableObject.h"
 
 MoveableObject::MoveableObject( ) {
-	//super( ); //FIXME
+	//super( ); //TESTME
 	kGroundFriction = 0.6;
 	
 	// get collsion radius
@@ -19,15 +19,15 @@ MoveableObject::MoveableObject( ) {
 /// Replaces the constructor since we can't have any parameters due to the CS4 symbol inheritance
 Vector2 *MoveableObject::Initialize( Vector2* pos, Map *map, Platformer* parent ) {
 	// position in the centre of the tile in the X and resting on the bottom of the tile in the Y
-	//if ( m_TileMapped ) //FIXME
-	if( true ) //FIXME
+	//if ( m_TileMapped )
+	if( true ) //TESTME
 	{
 		pos->m_x += kTileSize/2;
 		pos->m_y += kTileSize-m_radius;
 	}
 	
 	m_pos = pos;
-	//m_platformer = parent; //FIXME
+	//m_platformer = parent; //TESTME
 	m_map = map;
 	
 	return pos;
@@ -90,8 +90,8 @@ void MoveableObject::set_m_Dead( bool dead ) {
 
 /// Apply gravity, do collision and integrate position
 void MoveableObject::Update( float dt ) {
-	//if ( m_ApplyGravity )  //FIXME
-	if( true ) //FIXME
+	//if ( m_ApplyGravity )
+	if( true ) //TESTME
 	{
 		m_vel->AddYTo( kGravity );
 		
@@ -100,7 +100,7 @@ void MoveableObject::Update( float dt ) {
 	}
 	
 	//if ( m_HasWorldCollision )
-	if( true )  //FIXME
+	if( true )  //TESTME
 	{
 		// do complex world collision
 		Collision( dt );
@@ -141,8 +141,8 @@ void MoveableObject::PostCollisionCode( ) {
 /// Do collision detection and response for this object
 void MoveableObject::Collision( float dt ) {
 	// where are we predicted to be next frame?
-	//Vector2 *predictedPos = Platformer::m_gTempVectorPool->AllocateClone( m_pos )->MulAddScalarTo( m_vel, dt );  //FIXME
-	Vector2 *predictedPos = (new Vector2( m_pos->m_x, m_pos->m_y))->MulAddScalarTo( m_vel, dt );  //FIXME
+	//Vector2 *predictedPos = Platformer::m_gTempVectorPool->AllocateClone( m_pos )->MulAddScalarTo( m_vel, dt );
+	Vector2 *predictedPos = (new Vector2( m_pos->m_x, m_pos->m_y))->MulAddScalarTo( m_vel, dt );  //TESTME
 	
 	// find min/max
 	Vector2 *v_min = m_pos->Min( predictedPos );
@@ -159,7 +159,7 @@ void MoveableObject::Collision( float dt ) {
 	
 	PreCollisionCode( );
 	
-	//m_map->DoActionToTilesWithinAabb( v_min, v_max, InnerCollide, dt ); //FIXME
+	//m_map->DoActionToTilesWithinAabb( v_min, v_max, InnerCollide, dt ); //TESTME
 	
 	PostCollisionCode( );
 }
@@ -169,9 +169,8 @@ void MoveableObject::InnerCollide( AABB *tileAabb, int tileType, float dt, int i
 	// is it collidable?
 	if ( Map::IsTileObstacle( tileType ) )
 	{
-		// standard collision responce
-		//bool collided = Collide::AabbVsAabb( this, tileAabb, m_contact, i, j, m_map, true ); //FIXME //FIXME
-		bool collided = false; //FIXME
+		// standard collision response
+		bool collided = Collide::AabbVsAabb( this, tileAabb, m_contact, i, j, m_map, true );
 		if ( collided )
 		{
 			CollisionResponse( m_contact->m_normal, m_contact->m_dist, dt );
@@ -207,8 +206,8 @@ void MoveableObject::CollisionResponse( Vector2 *normal, float dist, float dt ) 
 			m_onGround = true;
 			
 			// friction
-			//if ( m_ApplyFriction )  //FIXME
-			if( true )  //FIXME
+			//if ( m_ApplyFriction )
+			if( true )  //TESTME
 			{
 				// get the tanget from the normal (perp vector)
 				Vector2 *tangent = normal->get_m_Perp();

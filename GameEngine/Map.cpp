@@ -10,34 +10,31 @@ Map::Map(){
 	/////BEGIN PLATFORMER
 
 
-	//super( ); //FIXME
+	//super( ); //TESTME
 	
 	PLATFORMER_kMaxCharacters = 50;
 
 	// keyboard controller
 	//m_keyboard = new Keyboard( this->stage );
 	
-	// temporary vector2 pool for fast allocation
-	//m_gTempVectorPool = new VectorPool( 10000 );  //FIXME
-	
 	//m_dynamicGfx = new vector<Sprite>( );
 	
 	// create the single map and all the tiles which go with it
-	//m_map = new SimpleMap(this);  //FIXME
+	//m_map = new SimpleMap(this);  //TESTME
 	
 	
 	
 	
 	
-	//////////FIXME
-	//PLATFORMER_m_map = new Map();// new vector<int>(); //FIXME
-	//////////FIXME
+	//////////
+	//PLATFORMER_m_map = new Map();// new vector<int>(); //TESTME
+	//////////
 	
 	
 	
 	
 	
-	//CreateTilesInner( m_map, true ); //FIXME //FIXME
+	//CreateTilesInner( m_map, true ); //TESTME
 	
 	// camera controls what we see
 	//m_camera = new Camera( this, m_player );
@@ -46,7 +43,7 @@ Map::Map(){
 	// this->stage->frameRate = kDesiredFps;
 	
 	// start the update loop
-	//Start( ); //FIXME
+	//Start( );
 
 
 
@@ -142,8 +139,9 @@ void Map::FillInTileAabb( int i, int j, AABB *outAabb ) {
 }
 
 /// Call out to the action for each tile within the given world space bounds
+
 /*
-void Map::DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *action, float dt ) { //FIXME
+void Map::DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *action, float dt ) { //TESTME
 	// round down
 	int minI = WorldCoordsToTileX(v_min->m_x);
 	int minJ = WorldCoordsToTileY(v_min->m_y);
@@ -165,8 +163,6 @@ void Map::DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *a
 	}
 }
 */
-
-
 
 
 
@@ -217,13 +213,13 @@ void Map::PLATFORMER_CreateTilesInner( vector<int> *tileSet, bool addtoScene ) {
 			//
 			// foreground tiles
 			//
-			/* //FIXME
+			/*
 			case kEmpty:
 				//tile = 0;
 				break;
 				*/
 			/*
-			case kPlatform: //FIXME
+			case kPlatform:
 			{
 				tile = new MovieClip( );
 				tile.graphics.beginFill( 0xffffff );
@@ -282,7 +278,7 @@ void Platformer::Update( float dt ) {
 		//m_camera->Update( dt );
 		
 		// clear vector2 allocator
-		//m_gTempVectorPool->Clear( );  //FIXME
+		//m_gTempVectorPool->Clear( );
 	}
 }
 */

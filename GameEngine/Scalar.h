@@ -3,6 +3,10 @@
 #include <Math.h>
 #include "Constants.h"
 
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 class Scalar {
 public:
 	static const int kMaxRandValue = 65535;

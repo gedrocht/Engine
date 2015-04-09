@@ -212,10 +212,10 @@ float Vector2::ToAngle() {
 Vector2 *Vector2::RandomRadius(float r) {
     return (new Vector2
                 (
-                    //random() * 2 - 1, //FIXME
-                    //random() * 2 - 1 //FIXME
-					1 * 2 - 1,
-					1 * 2 - 1
+                    //random() * 2 - 1,
+                    //random() * 2 - 1 
+					(rand()*100.0)/100.0 * 2 - 1, //TESTME
+					(rand()*100.0)/100.0 * 2 - 1  //TESTME
                 ))->MulScalar( r );
 }
 

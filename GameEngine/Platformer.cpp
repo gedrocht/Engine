@@ -2,7 +2,7 @@
 #include "Platformer.h"
 
 Platformer::Platformer( ) {
-	//super( ); //FIXME
+	//super( );
 	
 	kMaxCharacters = 50;
 
@@ -10,14 +10,14 @@ Platformer::Platformer( ) {
 	//m_keyboard = new Keyboard( this->stage );
 	
 	// temporary vector2 pool for fast allocation
-	//m_gTempVectorPool = new VectorPool( 10000 );  //FIXME
+	//m_gTempVectorPool = new VectorPool( 10000 );
 	
 	//m_dynamicGfx = new vector<Sprite>( );
 	
 	// create the single map and all the tiles which go with it
-	//m_map = new SimpleMap(this);  //FIXME
-	m_map = new Map();// new vector<int>(); //FIXME
-	//CreateTilesInner( m_map, true ); //FIXME //FIXME
+	//m_map = new SimpleMap(this);
+	m_map = new Map();// new vector<int>();
+	//CreateTilesInner( m_map, true );
 	
 	// camera controls what we see
 	//m_camera = new Camera( this, m_player );
@@ -26,7 +26,7 @@ Platformer::Platformer( ) {
 	// this->stage->frameRate = kDesiredFps;
 	
 	// start the update loop
-	//Start( ); //FIXME
+	//Start( );
 }
 
 /// Acessor for the keyboard
@@ -66,13 +66,13 @@ void Platformer::CreateTilesInner( vector<int> *tileSet, bool addtoScene ) {
 			//
 			// foreground tiles
 			//
-			/* //FIXME
+			/*
 			case kEmpty:
 				//tile = 0;
 				break;
 				*//*
 			/*
-			case kPlatform: //FIXME
+			case kPlatform:
 			{
 				tile = new MovieClip( );
 				tile.graphics.beginFill( 0xffffff );
@@ -131,7 +131,7 @@ void Platformer::Update( float dt ) {
 		//m_camera->Update( dt );
 		
 		// clear vector2 allocator
-		//m_gTempVectorPool->Clear( );  //FIXME
+		//m_gTempVectorPool->Clear( );
 	}
 }
 */

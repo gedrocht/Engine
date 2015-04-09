@@ -33,8 +33,8 @@ bool Collide::AabbVsAabbInternal( Vector2 *delta, Vector2 *aabbCenter, Vector2 *
 }
 
 bool Collide::AabbVsAabb( IAABB *a, IAABB *b, Contact *outContact, int tileI, int tileJ, Map *map, bool checkInternal ){
-	//Vector2* combinedExtentsB = Platformer::m_gTempVectorPool->AllocateClone( b->m_HalfExtents )->AddTo(a->m_HalfExtents); //FIXME
-	Vector2 *combinedExtentsB = (new Vector2( b->get_m_HalfExtents()->m_x, b->get_m_HalfExtents()->m_y ))->AddTo(a->m_HalfExtents ); //FIXME
+	//Vector2* combinedExtentsB = Platformer::m_gTempVectorPool->AllocateClone( b->m_HalfExtents )->AddTo(a->m_HalfExtents);
+	Vector2 *combinedExtentsB = (new Vector2( b->get_m_HalfExtents()->m_x, b->get_m_HalfExtents()->m_y ))->AddTo(a->m_HalfExtents ); //TESTME
 	Vector2* combinedPosB = b->m_Center;
 	
 	Vector2* delta = combinedPosB->Sub(a->m_Center);

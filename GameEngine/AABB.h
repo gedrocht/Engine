@@ -2,7 +2,7 @@
 
 #include "IAABB.h"
 
-class AABB {// : IAABB {
+class AABB : public IAABB {
 public:
 	Vector2 *m_Center;
 	Vector2 *m_HalfExtents;

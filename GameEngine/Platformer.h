@@ -18,7 +18,7 @@ public:
 	Map *m_map;
 
 	// fast allocator for vector2s, cleared once per frame
-	//VectorPool *m_gTempVectorPool; //FIXME
+	//VectorPool *m_gTempVectorPool;
 
 	//Keyboard *m_keyboard;
 	Player *m_player;

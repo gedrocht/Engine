@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player( ) {
-	//super(); //FIXME
+	//super(); //TESTME
 	
 	// how high do they jump?
 	kPlayerJumpVel = 900*1.2;
@@ -11,7 +11,7 @@ Player::Player( ) {
 
 	// controls how fast the player's velocity moves towards the target velocity
 	// 1.0 = in one frame, 0 = never
-	kReachTargetScale = 0.7;
+	kReachTargetScale = 0.7f;
 
 	// how fast the player walks
 	kWalkSpeed = 80;
@@ -26,8 +26,10 @@ Player::Player( ) {
 
 /// Replaces the constructor since we can't have any parameters due to the CS4 symbol inheritance
 Vector2 *Player::Initialize(Vector2 *pos, Map *map, Platformer *parent) {
-	//Vector2 *newPos = super->Initialise( pos, map, parent ); //FIXME
+	//Vector2 *newPos = super->Initialise( pos, map, parent ); //TESTME
 	Vector2 *newPos = new Vector2();
+	newPos->m_x = pos->m_x;
+	newPos->m_y = pos->m_x;
 
 	this->m_velTarget = new Vector2( );
 	//m_keyboard = parent.m_Keyboard;
@@ -47,7 +49,7 @@ bool Player::get_m_HasWorldCollision( ) {
 
 void Player::Update( float dt ) {
 	// player contol
-	//KeyboardControl( dt ); //FIXME
+	//KeyboardControl( dt ); //TESTME
 	
 	// integrate velocity
 	if ( m_flyMode )
@@ -63,7 +65,7 @@ void Player::Update( float dt ) {
 	m_vel->m_x = Scalar::Clamp( m_vel->m_x, -kMaxSpeed, kMaxSpeed );
 	m_vel->m_y = min( m_vel->m_y, kMaxSpeed*2 );
 	
-	//super.Update( dt ); //FIXME
+	//super.Update( dt ); //TESTME
 	
 	/*
 	if ( m_hurtTimer>0 )

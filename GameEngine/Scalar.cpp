@@ -30,8 +30,9 @@ float Scalar::EaseOutVel( float x ) {
 }
 
 float Scalar::RandBetween( float a, float b ) {
-	//return random( )*( b-a )+a; //FIXME
-	return (b-a)+a; //FIXME
+	//return random( )*( b-a )+a;
+
+	return (rand() % (int)(b*100.0-a*100.0) + (int)(a*100.0))/100.0; //TESTME
 }
 
 int Scalar::RandBetweenInt( int a, int b ) {
@@ -39,17 +40,17 @@ int Scalar::RandBetweenInt( int a, int b ) {
 }
 
 int Scalar::Randint( ) {
-	//return int(random( )*kMaxRandValue); //FIXME
-	return kMaxRandValue/2; //FIXME
+	//return int(random( )*kMaxRandValue);
+	return rand() % kMaxRandValue; //TESTME
 }
 
 int Scalar::RandInt( ) {
-	//return int(random( )*kMaxRandValue); //FIXME
-	return kMaxRandValue/2; //FIXME 
+	//return int(random( )*kMaxRandValue);
+	return rand() % kMaxRandValue; //TESTME 
 }
 
 /*
-float Scalar::FromVector2( Vector2 *v ) { //FIXME
+float Scalar::FromVector2( Vector2 *v ) {
 	return atan2( v->m_y, v->m_x );
 }
 */

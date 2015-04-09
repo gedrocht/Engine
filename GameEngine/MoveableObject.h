@@ -5,7 +5,8 @@
 class Map;
 //class Platformer;
 
-class MoveableObject { // : public IAABB, public ICircle {
+class MoveableObject : public IAABB //, public ICircle {
+{
 public:
 	// friction with ground - 1=totally sticky, 0=ice
 	float kGroundFriction;

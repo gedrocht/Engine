@@ -22,8 +22,8 @@ void Circle::set_m_Radius( float newRadius ){
 }
 
 bool Circle::Contains( Vector2 *p ){
-	//float radius = m_radius - kTouchingThresh; //FIXME
-	float radius = m_radius - 1; //FIXME
+	//float radius = m_radius - kTouchingThresh;
+	float radius = m_radius - 1; //TESTME
 
     return p->Sub(m_pos)->get_m_LenSqr() < radius*radius;
 }
@@ -79,8 +79,14 @@ bool Circle::CircleCircleIntersect( Circle *a, Circle *b, Vector2 *pointAOut, Ve
         
         Vector2 *perp = b->m_pos->Sub( a->m_pos )->get_m_Perp()->get_m_Unit();
 
-        pointAOut = P2->Add(perp->MulScalar(radius)); //FIXME
-        pointBOut = P2->Sub(perp->MulScalar(radius)); //FIXME
+		Vector2 *temp_a = P2->Add(perp->MulScalar(radius)); //TESTME
+		Vector2 *temp_b = P2->Sub(perp->MulScalar(radius));
+
+        pointAOut->m_x = temp_a->m_x;
+		pointAOut->m_y = temp_a->m_y;
+
+        pointBOut->m_x = temp_b->m_x;
+		pointBOut->m_y = temp_b->m_y;
         
         return true;
     }
@@ -112,7 +118,7 @@ float Circle::RayCast( Vector2 *start, Vector2 *end, bool invert ){
         float t1 = (-a - num) / b;
 
         if (invert) {
-            return min(t1, t0);
+            return (float)min(t1, t0);
         } else {
             return t0;
         }

@@ -7,7 +7,7 @@
 #include "Player.h"
 
 
-//class Platformer; //FIXME
+//class Platformer; //TESTME
 
 class Player;
 
@@ -20,11 +20,11 @@ public:
 
 	AABB *m_aabbTemp;
 	
-	//Platformer *m_platformer; //FIXME
+	//Platformer *m_platformer; //TESTME
 	//BEGIN PLATFORMER
 	int PLATFORMER_kMaxCharacters;
 	Player *PLATFORMER_m_player;
-	//Map *PLATFORMER_m_map; //FIXME
+	//Map *PLATFORMER_m_map; //TESTME
 	Player *PLATFORMER_get_m_Player( );
 	void PLATFORMER_CreateTilesInner( vector<int> *tileSet, bool addtoScene );
 	void PLATFORMER_Update( float dt );
@@ -49,5 +49,5 @@ public:
 	int GetTileFromPos( Vector2 *pos );
 	static bool IsTileObstacle( int tile );
 	void FillInTileAabb( int i, int j, AABB *outAabb );
-	//void DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *action, float dt ); //FIXME
+	//void DoActionToTilesWithinAabb( Vector2 *v_min, Vector2 *v_max, Function *action, float dt ); //TESTME
 };

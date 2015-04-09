@@ -11,6 +11,10 @@
 #include "Texture.h"
 #include "Physical.h"
 
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 using namespace std;
 
 #define PI 3.14159265f
@@ -68,6 +72,8 @@ bool fullScreenMode = false; // Full-screen or windowed mode?
 
 // Main function: GLUT runs as a console application starting at main()
 int main(int argc, char** argv) {
+	srand (time(NULL));
+
 	glutInit(&argc, argv);            // Initialize GLUT
 	glutInitDisplayMode(GLUT_DOUBLE); // Enable double buffered mode
 	glutInitWindowSize(windowWidth, windowHeight);  // Initial window width and height
