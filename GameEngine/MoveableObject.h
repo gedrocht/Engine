@@ -48,7 +48,7 @@ public:
 	bool get_m_ForceUpdate( );
 	void PreCollisionCode( );
 	void PostCollisionCode( );
-	void Collision( float dt );
+	void Collision( float dt, int TILE_WIDTH, int TILE_HEIGHT );
 	void InnerCollide( AABB *tileAabb, int tileType, float dt, int i, int j );
 	void LandingTransition( );
 	void CollisionResponse( Vector2 *normal, float dist, float dt );

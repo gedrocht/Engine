@@ -163,14 +163,14 @@ Vector2* Vector2::get_m_Floor() {
 Vector2* Vector2::Clamp( Vector2 *v_min, Vector2* v_max ) {
     return new Vector2
                 (
-                    max( min(m_x, v_max->m_x), v_min->m_x ),
-                    max( min(m_y, v_max->m_y), v_min->m_y )
+                    _max( _min(m_x, v_max->m_x), v_min->m_x ),
+                    _max( _min(m_y, v_max->m_y), v_min->m_y )
                 );
 }
 
 Vector2* Vector2::ClampInto( Vector2* v_min, Vector2* v_max ) {
-    m_x = max( min( m_x, v_max->m_x ), v_min->m_x );
-    m_y = max( min( m_y, v_max->m_y ), v_min->m_y );
+    m_x = _max( _min( m_x, v_max->m_x ), v_min->m_x );
+    m_y = _max( _min( m_y, v_max->m_y ), v_min->m_y );
     
     return this;
 }
@@ -243,15 +243,15 @@ Vector2* Vector2::CloneInto( Vector2* v ) {
 }
 
 Vector2* Vector2::MaxInto( Vector2* b ) {
-    m_x = max( m_x, b->m_x );
-    m_y = max( m_y, b->m_y );
+    m_x = _max( m_x, b->m_x );
+    m_y = _max( m_y, b->m_y );
     
     return this;
 }
 
 Vector2* Vector2::MinInto( Vector2* b ) {
-    m_x = min( m_x, b->m_x );
-    m_y = min( m_y, b->m_y );
+    m_x = _min( m_x, b->m_x );
+    m_y = _min( m_y, b->m_y );
     
     return this;
 }

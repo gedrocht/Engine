@@ -118,7 +118,7 @@ float Circle::RayCast( Vector2 *start, Vector2 *end, bool invert ){
         float t1 = (-a - num) / b;
 
         if (invert) {
-            return (float)min(t1, t0);
+            return (float)_min(t1, t0);
         } else {
             return t0;
         }

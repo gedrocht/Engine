@@ -15,10 +15,19 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+
+#include "MoveableObject.h"
+#include "Map.h"
+#include "eTileTypes.h"
+
+
 using namespace std;
 
 #define PI 3.14159265f
 #define GRAVITY 2;
+
+#define TILE_WIDTH 50
+#define TILE_HEIGHT 50
 
 void display();
 void specialKeys(int key, int x, int y);
@@ -70,6 +79,9 @@ bool space_pressed = true;
 
 bool fullScreenMode = false; // Full-screen or windowed mode?
 
+MoveableObject *moveableObject = new MoveableObject();
+Map *map = new Map();
+
 // Main function: GLUT runs as a console application starting at main()
 int main(int argc, char** argv) {
 	srand (time(NULL));
@@ -94,12 +106,56 @@ int main(int argc, char** argv) {
 	textures->push_back(player->texture);
 	textures->push_back(new Texture("test.bmp",40,40,90,90));
 
+
+
+
+
+	int ROWS = 10;
+	int COLUMNS = 10;
+
+	Texture *brick;
+	vector<int> *mapVector = new vector<int>();
+	for( int y = 0 ; y < ROWS ; y++ ){
+		for( int x = 0 ; x < COLUMNS ; x++ ){
+			//kEmpty
+			//kPlatform
+			//kPlayer
+			if( y == 5 ){
+				mapVector->push_back(kPlatform);
+				brick = new Texture("platformTile.bmp",x*TILE_WIDTH,y*TILE_HEIGHT,50,50);
+				textures->push_back(brick);
+				bricks->push_back(brick);
+			} else {
+				mapVector->push_back(kEmpty);
+			}
+		}
+	}
+
+	map->m_height = ROWS;
+	map->m_width = COLUMNS;
+	map->m_Map = mapVector;
+	moveableObject->m_map = map;
+
+
+	for( int i = 0 ; i < ROWS*COLUMNS ; i++ ){
+		cout << (*moveableObject->m_map->m_Map)[i];
+		if( i != 0 && (i+1) % COLUMNS == 0 )
+			cout << endl;
+	}
+
+
+
+
+
+
+	/*
 	Texture *brick;
 	for( int i = 0 ; i < 3 ; i++ ){
 		brick = new Texture("brick.bmp",i*135-67,300-i*100,135,62);
 		textures->push_back(brick);
 		bricks->push_back(brick);
 	}
+	*/
 
 	glutMainLoop();               // Enter event-processing loop
 
@@ -165,6 +221,7 @@ void display() {
 	
 	glOrtho(0.0f, windowWidth, windowHeight, 0.0f, 0.0f, 1.0f);
 
+	/*
 	Physical *temp;
 	Texture *temp_brick;
 	bool player_is_colliding = false;
@@ -199,13 +256,21 @@ void display() {
 		if( !player_is_colliding )
 			temp->Vy += GRAVITY;
 
-		/*
-		if( temp->texture->getY() > 209 )
-			cout << "y:  " << temp->texture->getY() << endl;
-		*/
+		
+		//if( temp->texture->getY() > 209 )
+		//	cout << "y:  " << temp->texture->getY() << endl;
+		
 		
 		temp->update();
 	}
+	*/
+
+	player->Vy += GRAVITY;
+	player->update();
+	moveableObject->set_m_Pos(new Vector2(player->texture->getX(), player->texture->getY())); //HACKHACK
+	moveableObject->set_m_Vel(new Vector2(player->Vx, player->Vy)); //HACKHACK
+
+	moveableObject->Collision(16,TILE_WIDTH,TILE_HEIGHT);
 
 	updateInput();
 

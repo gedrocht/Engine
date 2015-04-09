@@ -91,8 +91,8 @@ float Scalar::RadToDeg( float radians ) {
 }
 
 float Scalar::Clamp( float a, float f_min, float f_max ) {
-	a = max( f_min, a );
-	a = min( f_max, a );
+	a = _max( f_min, a );
+	a = _min( f_max, a );
 	return a;
 }
 

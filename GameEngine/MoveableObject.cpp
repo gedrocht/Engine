@@ -1,5 +1,8 @@
 #include "MoveableObject.h"
 
+#include <iostream>
+using namespace std;
+
 MoveableObject::MoveableObject( ) {
 	//super( ); //TESTME
 	kGroundFriction = 0.6;
@@ -103,7 +106,7 @@ void MoveableObject::Update( float dt ) {
 	if( true )  //TESTME
 	{
 		// do complex world collision
-		Collision( dt );
+		Collision( dt, 50, 50 );
 	}
 	
 	// integrate position
@@ -139,7 +142,7 @@ void MoveableObject::PostCollisionCode( ) {
 }
 
 /// Do collision detection and response for this object
-void MoveableObject::Collision( float dt ) {
+void MoveableObject::Collision( float dt, int TILE_WIDTH, int TILE_HEIGHT ) {
 	// where are we predicted to be next frame?
 	//Vector2 *predictedPos = Platformer::m_gTempVectorPool->AllocateClone( m_pos )->MulAddScalarTo( m_vel, dt );
 	Vector2 *predictedPos = (new Vector2( m_pos->m_x, m_pos->m_y))->MulAddScalarTo( m_vel, dt );  //TESTME
@@ -159,7 +162,50 @@ void MoveableObject::Collision( float dt ) {
 	
 	PreCollisionCode( );
 	
-	//m_map->DoActionToTilesWithinAabb( v_min, v_max, InnerCollide, dt ); //TESTME
+	//m_map->DoActionToTilesWithinAabb( v_min, v_max, InnerCollide, dt ); 
+
+	/////////////////////////////////////         //TESTME
+	///begin DoActionToTilesWithinAabb///
+	/////////////////////////////////////
+
+	/*
+	// round down
+	int minI = m_map->WorldCoordsToTileX(v_min->m_x);
+	int minJ = m_map->WorldCoordsToTileY(v_min->m_y);
+	
+	// round up
+	int maxI = m_map->WorldCoordsToTileX(v_max->m_x+0.5);
+	int maxJ = m_map->WorldCoordsToTileY(v_max->m_y+0.5);
+	*/
+	int minI = v_min->m_x / TILE_WIDTH; //TESTME
+	int minJ = v_min->m_y / TILE_HEIGHT;
+
+	int maxI = (v_max->m_x+0.5) / TILE_WIDTH; //TESTME
+	int maxJ = (v_max->m_y+0.5) / TILE_HEIGHT;
+
+	
+	AABB *m_aabbTemp = new AABB( );
+
+	for ( int i = minI; i<=maxI; i++ )
+	{
+		for ( int j = minJ; j<=maxJ; j++ )
+		{
+			// generate aabb for this tile
+			m_map->FillInTileAabb( i, j, m_aabbTemp, TILE_WIDTH, TILE_HEIGHT );
+			
+			// call the delegate on the main collision map
+			InnerCollide( m_aabbTemp, m_map->GetTile( i, j ), dt, i, j );
+		}
+	}
+
+	///////////////////////////////////
+	///end DoActionToTilesWithinAabb///
+	///////////////////////////////////
+
+
+
+
+
 	
 	PostCollisionCode( );
 }
@@ -169,10 +215,12 @@ void MoveableObject::InnerCollide( AABB *tileAabb, int tileType, float dt, int i
 	// is it collidable?
 	if ( Map::IsTileObstacle( tileType ) )
 	{
+		cout << "i: " << i << " j: " << j << " is obstacle" << endl;
 		// standard collision response
 		bool collided = Collide::AabbVsAabb( this, tileAabb, m_contact, i, j, m_map, true );
 		if ( collided )
 		{
+			cout << "COLLIDED" << endl;
 			CollisionResponse( m_contact->m_normal, m_contact->m_dist, dt );
 		}
 	}
@@ -185,8 +233,8 @@ void MoveableObject::LandingTransition( ) {
 void MoveableObject::CollisionResponse( Vector2 *normal, float dist, float dt ) {
 	// get the separation and penetration separately, this is to stop pentration 
 	// from causing the objects to ping apart
-	float separation = max( dist, 0 );
-	float penetration = min( dist, 0 );
+	float separation = _max( dist, 0 );
+	float penetration = _min( dist, 0 );
 	
 	// compute relative normal velocity require to be object to an exact stop at the surface
 	float nv = m_vel->Dot( normal ) + separation/dt;

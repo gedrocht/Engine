@@ -89,10 +89,10 @@ int Map::GetTile( int i, int j ) {
 	return GetTileSafe( m_Map, i, j );
 }
 
-int Map::GetTileSafe( vector<int> map, int i, int j ) {
+int Map::GetTileSafe( vector<int> *map, int i, int j ) {
 	if ( i >= 0 && i < m_width && j >= 0 && j < m_height )
 	{
-		return map[j*m_width+i];
+		return (*map)[j*m_width+i];
 	}
 	else 
 	{
@@ -131,10 +131,12 @@ bool Map::IsTileObstacle( int tile ) {
 	return tile==kPlatform;
 }
 
-void Map::FillInTileAabb( int i, int j, AABB *outAabb ) {
+void Map::FillInTileAabb( int i, int j, AABB *outAabb, int TILE_WIDTH, int TILE_HEIGHT ) {
 	outAabb->Initialize( (new Vector2(
-							TileCoordsToWorldX(i), 
-							TileCoordsToWorldY(j)
+							//TileCoordsToWorldX(i), 
+							//TileCoordsToWorldY(j)
+							i*TILE_WIDTH,
+							i*TILE_HEIGHT
 						))->AddTo(m_gTileCenterOffset), m_gTileHalfExtents );
 }
 

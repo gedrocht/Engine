@@ -234,7 +234,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\constants.h"
+				RelativePath=".\Constants.h"
 				>
 			</File>
 			<File
