@@ -1,5 +1,6 @@
 #include "Scalar.h"
 
+
 int kMaxRandValue = 65535;
 
 /// Return only the fractional component of n - always positive

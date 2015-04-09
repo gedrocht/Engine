@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Math.h>
-#include "Vector2.h"
 #include "PointAndDistanceContainer.h"
 
 class Circle {

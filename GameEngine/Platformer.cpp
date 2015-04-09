@@ -1,3 +1,4 @@
+/*
 #include "Platformer.h"
 
 Platformer::Platformer( ) {
@@ -34,7 +35,7 @@ Keyboard *Platformer::get_m_Keyboard( ) {
 
 	return m_keyboard;
 }
-*/
+*//*
 
 /// Acessor for the player
 Player *Platformer::get_m_Player( ) {
@@ -69,7 +70,7 @@ void Platformer::CreateTilesInner( vector<int> *tileSet, bool addtoScene ) {
 			case kEmpty:
 				//tile = 0;
 				break;
-				*/
+				*//*
 			/*
 			case kPlatform: //FIXME
 			{
@@ -79,7 +80,7 @@ void Platformer::CreateTilesInner( vector<int> *tileSet, bool addtoScene ) {
 				tile.graphics.endFill( );
 			}
 			break;
-			*/
+			*//*
 			
 			
 			//
@@ -106,7 +107,7 @@ void Platformer::CreateTilesInner( vector<int> *tileSet, bool addtoScene ) {
 				this.addChild( tile );
 			}
 		}
-		*/
+		*//*
 
 		index++;
 	}

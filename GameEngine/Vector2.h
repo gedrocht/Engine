@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef VECTOR2
+#define VECTOR2
+
 #include "Constants.h"
 #include "Point.h"
 #include "Scalar.h"
@@ -69,7 +72,9 @@ public:
 	Vector2* RoundTo( );
 };
 
-Vector2 *kScreenDimensions = new Vector2(640,360);
-Vector2 *kWorldHalfExtents;
-Vector2 *kUnitYNeg = new Vector2(0,-1);
-Vector2 *kExpand = new Vector2(5,5);
+static Vector2 *kScreenDimensions = new Vector2(640,360);
+static Vector2 *kWorldHalfExtents;
+static Vector2 *kUnitYNeg = new Vector2(0,-1);
+static Vector2 *kExpand = new Vector2(5,5);
+
+#endif

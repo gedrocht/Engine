@@ -27,7 +27,7 @@ Vector2 *MoveableObject::Initialize( Vector2* pos, Map *map, Platformer* parent 
 	}
 	
 	m_pos = pos;
-	m_platformer = parent;
+	//m_platformer = parent; //FIXME
 	m_map = map;
 	
 	return pos;

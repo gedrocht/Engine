@@ -1,9 +1,15 @@
 #pragma once
 
 #include "AABB.h"
+#include "Map.h"
+#include "Contact.h"
 
 //class AABB;
+
+/*
 class Map;
+class Contact;
+*/
 
 class Collide {
 public:

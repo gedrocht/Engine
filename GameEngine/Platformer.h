@@ -1,7 +1,9 @@
+/*
 #pragma once
 
 #include "Vector2.h"
 #include "Map.h"
+#include "Player.h"
 #include <vector>
 
 using namespace std;
@@ -33,3 +35,4 @@ public:
 	void ClearDynamicGfx( );
 	//MoveableObject *SpawnMo( Class *type, Vector2 *pos, bool addToScene );
 };
+*/
